@@ -147,3 +147,35 @@ var seatacAirport = {
 };
 
 seatacAirport.generateList();
+
+var seattleCenter = {
+  minCust: 11,
+  maxCust: 38,
+  aveCookiePerCust: 3.7,
+
+  randomCustPerHour: function () {
+    return Math.round(Math.random() * (this.maxCust - this.minCust) + this.minCust);
+  },
+  averagePerHour: function () {
+    return Math.round(this.randomCustPerHour() * this.aveCookiePerCust);
+  },
+  generateList: function () {
+    var ulElement = document.getElementById('seattleCenter');
+    var runningTotal = 0;
+
+    for (var i = 0; i < storeHours.length; i++) {
+      var liElement = document.createElement('li');
+
+      var randomNum = this.averagePerHour();
+      runningTotal += randomNum;
+
+      liElement.textContent = `${storeHours[i]}: ${randomNum} cookies`;
+      ulElement.appendChild(liElement);
+    }
+    var totalEl = document.createElement('li');
+    totalEl.textContent = `Total for the day: ${runningTotal} cookies`;
+    ulElement.appendChild(totalEl);
+  },
+};
+
+seattleCenter.generateList();
